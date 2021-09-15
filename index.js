@@ -50,7 +50,7 @@ class Counter {
    * @param {number} initialNumber - the initial state of the count
    */
   constructor(initialNumber) {
-    // ✨ initialize whatever properties are needed
+    this.number = initialNumber;
   }
 
   /**
@@ -66,7 +66,7 @@ class Counter {
    * counter.countDown() // returns 0
    */
   countDown() {
-    // ✨ implement
+    return this.number > 0 ? this.number-- : this.number;
   }
 }
 
@@ -75,7 +75,8 @@ class Seasons {
    * [Exercise 5A] Seasons creates a seasons object
    */
   constructor() {
-    // ✨ initialize whatever properties are needed
+    this.seasons = ["summer", "fall", "winter", "spring", "summer"];
+    this.index = 0;
   }
 
   /**
@@ -91,7 +92,9 @@ class Seasons {
    * seasons.next() // returns "summer"
    */
   next() {
-    // ✨ implement
+    const initIndex = this.index;
+    this.index = ++this.index % (this.seasons.length - 1);
+    return this.seasons[initIndex];
   }
 }
 
@@ -105,6 +108,8 @@ class Car {
   constructor(name, tankSize, mpg) {
     this.odometer = 0; // car initilizes with zero miles
     this.tank = tankSize; // car initiazes full of gas
+    this.tankSize = tankSize;
+    this.mpg = mpg;
     // ✨ initialize whatever other properties are needed
   }
 
@@ -122,7 +127,14 @@ class Car {
    * focus.drive(200) // returns 600 (ran out of gas after 100 miles)
    */
   drive(distance) {
-    // ✨ implement
+    const ableDist = this.mpg * this.tank;
+    const dist = distance > ableDist ? ableDist : distance;
+
+    this.tank -= dist / this.mpg;
+
+    this.odometer += dist;
+
+    return this.odometer;
   }
 
   /**
@@ -137,7 +149,11 @@ class Car {
    * focus.refuel(99) // returns 600 (tank only holds 20)
    */
   refuel(gallons) {
-    // ✨ implement
+    const available = this.tankSize - this.tank;
+
+    this.tank += gallons > available ? available : gallons;
+
+    return this.tank * this.mpg;
   }
 }
 
@@ -154,8 +170,8 @@ class Car {
  *    // result is false
  * })
  */
-function isEvenNumberAsync(number) {
-  // ✨ implement
+async function isEvenNumberAsync(number) {
+  return !(number % 2);
 }
 
 module.exports = {
